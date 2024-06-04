@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Frontend</title>
+</head>
+<body>
+    <h1>Telegram Bot Frontend</h1>
+    <button id="send-message">Send Message</button>
+    <script>
+        document.getElementById('send-message').addEventListener('click', () => {
+            fetch('http://localhost:8000/send-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: 'Hello from frontend!' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
