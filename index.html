@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>Я
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bot Frontend</title>
@@ -8,23 +9,65 @@
 <body>
     <h1>Telegram Bot Frontend</h1>
     <button id="send-message">Send Message</button>
+    
+    <pre><code id="webview_data"></code></pre>
+    
     <script>
-        document.getElementById('send-message').addEventListener('click', () => {
-            fetch('http://localhost:8000/send-message', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ text: 'Hello from frontend!' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+    const DemoApp = {
+        initData      : Telegram.WebApp.initData || '',
+        initDataUnsafe: Telegram.WebApp.initDataUnsafe || {},
+        MainButton    : Telegram.WebApp.MainButton,
+
+        init(options) {
+            document.body.style.visibility = '';
+            Telegram.WebApp.ready();
+            Telegram.WebApp.MainButton.setParams({
+                text      : 'CLOSE WEBVIEW',
+                is_visible: true
+            }).onClick(DemoApp.close);
+        },
+        expand() {
+            Telegram.WebApp.expand();
+        },
+        close() {
+            Telegram.WebApp.close();
+        },
+        toggleMainButton(el) {
+            const mainButton = Telegram.WebApp.MainButton;
+            if (mainButton.isVisible) {
+                mainButton.hide();
+                el.innerHTML = 'Show Main Button';
+            } else {
+                mainButton.show();
+                el.innerHTML = 'Hide Main Button';
+            }
+        } // Тут убираем точку с запятой
+    };
+
+    document.getElementById('send-message').addEventListener('click', () => {
+        fetch('http://localhost:8000/send-message', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ text: 'Hello from frontend!' })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
         });
-    </script>
+    });
+
+    const DemoAppInitData = {
+        init() {
+            DemoApp.init();
+            document.getElementById('webview_data').innerHTML = JSON.stringify(DemoApp.initDataUnsafe, null, 2);
+        }
+    };
+</script>
+
 </body>
 </html>
