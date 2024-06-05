@@ -49,10 +49,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    text: 'Hello from frontend!',
-                    exercise: 'Drill 79'
-                })
+                body: JSON.stringify({ text: 'Hello from frontend!' })
             })
             .then(response => response.json())
             .then(data => {
