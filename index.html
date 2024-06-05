@@ -25,7 +25,7 @@
         let tg = window.Telegram.WebApp; //обьявление обьекта telegram.webapp для взаимодействия с ботом
 
         tg.expand(); //открывает веб-приложение во все окно
-
+        let ss = window.Telegram.WebApp.
         let usercard = document.getElementById("usercard"); //получаем блок usercard в html
 
         let profName = document.createElement('p'); //создаем параграф и переменную для данных из ТГ
@@ -35,11 +35,11 @@
         //обращаемся к обьекту телеграмм: выведем имя, "фамилию" (если есть), через тире username и код языка
         usercard.appendChild(profName); //добавляем
 
-        let userid = document.createElement('p'); //создаем еще параграф и показываем user_id
-        userid.innerText = `${tg.initDataUnsafe.user.id} 
-        ${tg.initData}`;
+        let userid = document.createElement('p'); //создаем еще параграф
+        userid.innerText = `${tg.initDataUnsafe.user.id}`; //показываем user_id
         usercard.appendChild(userid); //добавляем
 
+        tg.sendData("Drill 79")
 
 
 
@@ -49,7 +49,10 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ text: 'Hello from frontend!' })
+                body: JSON.stringify({
+                    text: 'Hello from frontend!',
+                    exercise: 'Drill 79'
+                })
             })
             .then(response => response.json())
             .then(data => {
