@@ -22,21 +22,22 @@
     <div id="usercard"></div>
 
     <script>
-        let tg = window.Telegram.WebApp;
+        let tg = window.Telegram.WebApp; //обьявление обьекта telegram.webapp для взаимодействия с ботом
 
-        tg.expand();
+        tg.expand(); //открывает веб-приложение во все окно
 
-        let usercard = document.getElementById("usercard"); //получаем блок usercard
+        let usercard = document.getElementById("usercard"); //получаем блок usercard в html
 
-        let profName = document.createElement('p'); //создаем параграф
+        let profName = document.createElement('p'); //создаем параграф и переменную для данных из ТГ
         profName.innerText = `${tg.initDataUnsafe.user.first_name}
         ${tg.initDataUnsafe.user.last_name}
         ${tg.initDataUnsafe.user.username} (${tg.initDataUnsafe.user.language_code})`;
-        //выдем имя, "фамилию", через тире username и код языка
+        //обращаемся к обьекту телеграмм: выведем имя, "фамилию" (если есть), через тире username и код языка
         usercard.appendChild(profName); //добавляем
 
         let userid = document.createElement('p'); //создаем еще параграф
-        userid.innerText = `${tg.initDataUnsafe.user.id}`; //показываем user_id
+        userid.innerText = `${tg.initDataUnsafe.user.id} //показываем user_id
+        ${tg.initDataUnsafe}`;
         usercard.appendChild(userid); //добавляем
 
 
